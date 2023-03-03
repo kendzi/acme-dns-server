@@ -58,3 +58,21 @@ or replication is performed, allowing all updates to be reflected right away.
     client is provided in the `example_hooks` directory.
 
  4. Run your ACME client to generate the certificate.
+
+# Docker
+
+- Build
+`docker build . -t acme-dns-server`
+
+- Prepare data
+`echo "TestTestTest" > ./data/example.net`
+
+- Run it
+`docker run -v $(pwd)/data:/opt/record -p 5553:53/udp acme-dns-server`
+
+- Test it
+`dig +short TXT example.net @localhost -p 5553`
+
+- Use pre build image
+`docker run -v $(pwd)/data:/opt/record -p 5553:53/udp kendzi/acme-dns-server:latest`
+
